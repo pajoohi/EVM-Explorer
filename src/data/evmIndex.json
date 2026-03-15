@@ -1,0 +1,322 @@
+{
+    "families": [
+        {
+            "id": "sitara",
+            "name": "Sitara"
+        },
+        {
+            "id": "jacinto",
+            "name": "Jacinto"
+        },
+        {
+            "id": "connectivity",
+            "name": "Connectivity"
+        },
+        {
+            "id": "debug",
+            "name": "Debug Tools"
+        },
+        {
+            "id": "beagleboard",
+            "name": "BeagleBoard"
+        }
+    ],
+    "evms": [
+        {
+            "id": "am62x-sk",
+            "name": "AM62x Starter Kit",
+            "partNumber": "SK-AM62-LP",
+            "family": "sitara",
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xx",
+            "hasStl": false,
+            "flashingSupported": true,
+            "processorSpecsLink": "https://www.ti.com/product/AM625",
+            "variants": [
+                {
+                    "id": "SK-AM62-LP",
+                    "name": "SK-AM62-LP",
+                    "shortDescription": "The low-power AM62x starter kit (SK) evaluation module (EVM) is a stand-alone test and development platform built around the AM62x system-on-a-chip (SoC).",
+                    "heroImage": "sk-am62-angled.png",
+                    "officialLink": "https://www.ti.com/tool/SK-AM62",
+                    "bomLink": "/EVM-Explorer/evms/tada/bom/ibom.html",
+                    "designFilesLink": "https://www.ti.com/lit/zip/SPRR448",
+                    "revisions": [
+                        "E1",
+                        "E2",
+                        "E3"
+                    ],
+                    "images": [
+                        "sk-am62-angled.png",
+                        "sk-am62-top.png",
+                        "sk-am62-bottom.png"
+                    ],
+                    "revisionNotes": {
+                        "E1": "Initial release",
+                        "E2": "Fixed LVDS connector pinout to maintain differential signals. Corrected UART1/McASP buffer signal directions. Added isolation buffers for XDS110 Test Automation constraints. Resolved SD card detect voltage collapse.",
+                        "E3": "Changed LDO components to TPS7A2033 & TPS7A2018 series. Updated SOC routing and oscillator crystals."
+                    },
+                    "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xx-lp"
+                },
+                {
+                    "id": "SK-AM62-SIP",
+                    "name": "SK-AM62-SIP",
+                    "shortDescription": "The SK-AM62-SIP starter kit (SK) evaluation module (EVM) is a stand-alone test and development platform built around the AM6254 system-on-a-chip (SoC) with integrated 512 MB LPDDR4 SDRAM in a single package.",
+                    "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/12/sk-am62-sip-angled-300x169.png",
+                    "officialLink": "https://www.ti.com/tool/SK-AM62-SIP",
+                    "revisions": [
+                        "E1"
+                    ],
+                    "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xxsip"
+                },
+                {
+                    "id": "SK-AM62B",
+                    "name": "SK-AM62B",
+                    "shortDescription": "The AM62B starter kit (SK) evaluation module (EVM) is a stand-alone test and development platform built around the AM62x system-on-a-chip (SoC). SK-AM62B is the newest version of SK-AM62.",
+                    "heroImage": "https://cdn.armbian.com/wp-content/uploads/2023/09/TISK62B-300x169.png",
+                    "officialLink": "https://www.ti.com/tool/SK-AM62B",
+                    "revisions": [
+                        "E1"
+                    ],
+                    "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xx"
+                }
+            ],
+            "processor": "AM62x",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-AM62X"
+                    }
+                ],
+                "Processor SDK RTOS": [
+                    {
+                        "name": "MCU+ SDK",
+                        "description": "RTOS and baremetal software for the embedded Cortex-M or R cores.",
+                        "url": "https://www.ti.com/tool/MCU-PLUS-SDK-AM62X"
+                    }
+                ],
+                "Zephyr": [
+                    {
+                        "name": "Zephyr RTOS",
+                        "description": "Open source Zephyr project support.",
+                        "url": "https://docs.zephyrproject.org/latest/boards/arm/ti_am62x_sk/doc/index.html"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "tada",
+            "name": "TI Test Automation Debug Adapter (TADA)",
+            "family": "debug",
+            "shortDescription": "XDS110 compatible debug probe for Test Automation",
+            "heroImage": "TADA_Hero.png",
+            "images": [
+                "TADA_Hero.png",
+                "TADA_Top.png",
+                "TADA_Bottom.png"
+            ],
+            "revisions": [
+                "V1.0"
+            ],
+            "hasStl": true,
+            "hasBom": true,
+            "processor": "N/A"
+        },
+        {
+            "id": "sk-am64b",
+            "name": "SK-AM64B",
+            "family": "sitara",
+            "shortDescription": "The AM64B starter kit (SK) is a low-cost stand-alone test and development platform based on the Sitara™ AM6442 processor.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2023/06/sk-am64b-300x169.png",
+            "officialLink": "https://www.ti.com/tool/SK-AM64B",
+            "revisions": [
+                "E1"
+            ],
+            "processor": "AM64x",
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am64xx",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-LINUX"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "sk-am68",
+            "name": "SK-AM68",
+            "family": "sitara",
+            "shortDescription": "Stand-alone test and development platform for the AM68 processor.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2024/03/sk-am68-angled-300x169.png",
+            "officialLink": "https://www.ti.com/tool/SK-AM68",
+            "revisions": [
+                "E1"
+            ],
+            "processor": "AM68x",
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am68-sk",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-LINUX"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "sk-am69",
+            "name": "SK-AM69",
+            "family": "sitara",
+            "shortDescription": "The SK-AM69 Starter Kit/Evaluation Module (EVM) is based on the AM69x AI vision processor which includes an image signal processor (ISP) and 32 TOPS AI accelerator.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/03/SK-AM69-300x169.png",
+            "officialLink": "https://www.ti.com/tool/SK-AM69",
+            "revisions": [
+                "E1"
+            ],
+            "processor": "AM69x",
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am69-sk",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-LINUX"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "sk-tda4vm",
+            "name": "SK-TDA4VM",
+            "family": "jacinto",
+            "shortDescription": "Bring smart cameras, robots and intelligent machines to life with the TDA4VM processor starter kit.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2023/08/j721exskg01evm-angled-300x169.png",
+            "officialLink": "https://www.ti.com/tool/SK-TDA4VM",
+            "revisions": [
+                "E1"
+            ],
+            "processor": "TDA4VM",
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=j721e-sk",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-LINUX"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "tmds62levm",
+            "name": "TMDS62LEVM",
+            "family": "sitara",
+            "shortDescription": "The TMDS62LEVM evaluation module (EVM) is designed for low-cost & performance optimized AM62L family of application processors.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/09/tmds62levm-angled-300x169.png",
+            "officialLink": "https://www.ti.com/tool/TMDS62LEVM",
+            "revisions": [
+                "E1"
+            ],
+            "processor": "AM62L",
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62lxx",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-LINUX"
+                    }
+                ]
+            }
+        },
+        {
+            "id": "beaglebone-ai64",
+            "name": "BeagleBone AI-64",
+            "family": "beagleboard",
+            "processor": "TDA4VM",
+            "shortDescription": "Building on the acclaimed BeagleBone® Black architecture, BeagleBone® AI-64 brings a complete AI and machine learning system to developers.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/03/BeagleBoneAI64_adjusted-300x169.png",
+            "officialLink": "https://www.beagleboard.org/boards/beaglebone-ai-64",
+            "revisions": [
+                "Rev A"
+            ],
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=j721e"
+        },
+        {
+            "id": "beagleplay",
+            "name": "BeaglePlay",
+            "family": "beagleboard",
+            "processor": "AM62x",
+            "shortDescription": "BeaglePlay® is an open-source single board computer designed to simplify the process of adding sensors, actuators, and indicators.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/03/BeaglePlay_adjusted-300x169.png",
+            "officialLink": "https://www.beagleboard.org/boards/beagleplay",
+            "revisions": [
+                "Rev A"
+            ],
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xx"
+        },
+        {
+            "id": "beagley-ai",
+            "name": "BeagleY-AI",
+            "family": "beagleboard",
+            "processor": "AM67A",
+            "shortDescription": "BeagleY®-AI is an open-source robotics and AI single board computer based on the TI AM67A with a familiar form-factor.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/03/BeagleY-300x169.png",
+            "officialLink": "https://www.beagleboard.org/boards/beagley-ai",
+            "revisions": [
+                "Rev A"
+            ],
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=j722s"
+        },
+        {
+            "id": "pocketbeagle-2",
+            "name": "PocketBeagle 2",
+            "family": "beagleboard",
+            "processor": "AM62x",
+            "shortDescription": "PocketBeagle 2 is an ultra-tiny-yet-complete Linux-enabled open-source development board.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/03/PocketBeagle2-300x169.jpg",
+            "officialLink": "https://www.beagleboard.org/boards/pocketbeagle-2",
+            "revisions": [
+                "Rev A"
+            ],
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xx"
+        },
+        {
+            "id": "sk-am62p-lp",
+            "name": "SK-AM62P-LP",
+            "family": "sitara",
+            "processor": "AM62P",
+            "shortDescription": "The SK-AM62P-LP starter kit (SK) evaluation module (EVM) is built around the AM62P display processor, which includes scalable Arm® Cortex®-A53 performance and embedded features, such as triple high-definition display support.",
+            "heroImage": "https://cdn.armbian.com/wp-content/uploads/2025/03/SK-AM62P-300x169.png",
+            "officialLink": "https://www.ti.com/tool/SK-AM62P-LP",
+            "revisions": [
+                "E1"
+            ],
+            "flashingSupported": true,
+            "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62pxx",
+            "armbianSlug": "sk-am62p",
+            "softwareSupport": {
+                "Processor SDK Linux (Yocto)": [
+                    {
+                        "name": "Processor SDK Linux",
+                        "description": "Foundational TI SDK including mainline Linux kernel, U-Boot, and Yocto Project file system.",
+                        "url": "https://www.ti.com/tool/PROCESSOR-SDK-LINUX"
+                    }
+                ]
+            }
+        }
+    ]
+}
