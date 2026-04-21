@@ -174,7 +174,17 @@ export default function Home() {
                                         {/* Card Body */}
                                         <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
                                             <h3 style={{ marginBottom: '0.5rem', color: 'var(--ti-text-primary)' }}>{evm.name}</h3>
-                                            <p style={{ color: 'var(--ti-text-secondary)', fontSize: '0.875rem', marginBottom: '1.5rem', flex: 1 }}>
+                                            <p style={{
+                                                color: 'var(--ti-text-secondary)',
+                                                fontSize: '0.875rem',
+                                                marginBottom: '1.5rem',
+                                                flex: 1,
+                                                display: '-webkit-box',
+                                                WebkitLineClamp: 3,
+                                                WebkitBoxOrient: 'vertical',
+                                                overflow: 'hidden',
+                                                textOverflow: 'ellipsis'
+                                            }}>
                                                 {desc}
                                             </p>
                                             <div style={{ color: 'var(--ti-teal)', fontWeight: '600', fontSize: '0.875rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
