@@ -69,9 +69,16 @@ export default function EVMDetails() {
                 </span>
             </div>
             
-            <div style={{ marginBottom: '1rem' }}>
-                <h1 style={{ fontSize: '2.2rem', marginBottom: '0.25rem', color: 'var(--ti-text-primary)' }}>{evm.name}</h1>
-                <div style={{ color: 'var(--ti-text-muted)', fontSize: '1rem' }}>Part Num: {activeEvmData.partNumber || activeEvmData.id.toUpperCase()}</div>
+            <div style={{ marginBottom: '0.5rem' }}>
+                <h1 style={{ fontSize: '2.2rem', marginBottom: '0.15rem', color: 'var(--ti-text-primary)' }}>
+                    {evm.name.startsWith('AM') && <span style={{ color: 'var(--ti-red)' }}>AM</span>}
+                    {evm.name.startsWith('AM') ? evm.name.slice(2).split('Starter Kit')[0] : evm.name.split('Starter Kit')[0]}
+                    {evm.name.includes('Starter Kit') && (
+                        <><span style={{ color: 'var(--ti-red)' }}>S</span>tarter <span style={{ color: 'var(--ti-red)' }}>K</span>it</>
+                    )}
+                    {evm.name.includes('Starter Kit') ? evm.name.split('Starter Kit')[1] : ''}
+                </h1>
+                <div style={{ color: 'var(--ti-text-muted)', fontSize: '0.95rem' }}>Part Num: {activeEvmData.partNumber || activeEvmData.id.toUpperCase()}</div>
             </div>
 
             <div className="layout-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
