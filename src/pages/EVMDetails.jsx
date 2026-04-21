@@ -22,6 +22,7 @@ export default function EVMDetails() {
     const [descriptionExpanded, setDescriptionExpanded] = useState(true);
     const [showToolsMenu, setShowToolsMenu] = useState(false);
     const [showDocsMenu, setShowDocsMenu] = useState(false);
+    const [showDesignMenu, setShowDesignMenu] = useState(false);
 
     const handleVariantChange = (variantId) => {
         setActiveVariant(variantId);
@@ -41,15 +42,15 @@ export default function EVMDetails() {
     }
 
     // Dependent paths
-    const baseUrl = import.meta.env.BASE_URL;
+    const baseUrl = import.meta.env.BASE_URL || '/';
     const stlPath = activeEvmData.hasStl || evm.hasStl ? `${baseUrl}evms/${evm.id}/models/${activeRevision.toLowerCase()}/board.stl` : null;
     const bomPath = activeEvmData.bomLink || evm.bomLink || `${baseUrl}evms/${evm.id}/bom/ibom.html`;
 
-    // Create image arrays for the carousel demo based on JSON metadata or revision fallbacks
+    // Create image arrays for the carousel based on JSON metadata or revision fallbacks
     const carouselImages = activeEvmData.images
         ? activeEvmData.images.map(img => `${baseUrl}evms/${evm.id}/images/${img}`)
         : [
-            activeEvmData.heroImage.startsWith('http')
+            activeEvmData.heroImage && activeEvmData.heroImage.startsWith('http')
                 ? activeEvmData.heroImage
                 : `${baseUrl}evms/${evm.id}/images/${activeEvmData.heroImage || `hero_${activeRevision}.webp`}`
         ];
@@ -67,6 +68,11 @@ export default function EVMDetails() {
                     {evmData.families.find(f => f.id === evm.family)?.name.toUpperCase()}
                 </span>
             </div>
+            
+            <div style={{ marginBottom: '1rem' }}>
+                <h1 style={{ fontSize: '2.2rem', marginBottom: '0.25rem', color: 'var(--ti-text-primary)' }}>{evm.name}</h1>
+                <div style={{ color: 'var(--ti-text-muted)', fontSize: '1rem' }}>Part Num: {activeEvmData.partNumber || activeEvmData.id.toUpperCase()}</div>
+            </div>
 
             <div className="layout-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2rem' }}>
 
@@ -75,7 +81,7 @@ export default function EVMDetails() {
 
                     {/* Media & Description Card */}
                     <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                        <EVMCarousel images={carouselImages} stlPath={stlPath} />
+                        <EVMCarousel key={`${evm.id}-${activeVariant}`} images={carouselImages} stlPath={stlPath} />
 
                         {/* Description area */}
                         <div style={{ padding: '0 0.5rem' }}>
@@ -145,10 +151,6 @@ export default function EVMDetails() {
                         </div>
                     )}
 
-                    <div>
-                        <h1 style={{ fontSize: '2.5rem', marginBottom: '0.5rem', color: 'var(--ti-text-primary)' }}>{activeEvmData.name}</h1>
-                        <div style={{ color: 'var(--ti-text-muted)', fontSize: '1.1rem' }}>Part Num: {activeEvmData.partNumber || activeEvmData.id.toUpperCase()}</div>
-                    </div>
 
                     <div className="glass-panel" style={{ padding: '1.5rem' }}>
                         <h4 style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
@@ -185,15 +187,9 @@ export default function EVMDetails() {
                     </div>
 
                     <div className="glass-panel" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        {(activeEvmData.designFilesLink || evm.designFilesLink) ? (
-                            <a href={(activeEvmData.designFilesLink || evm.designFilesLink)} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ width: '100%', justifyContent: 'center', textDecoration: 'none' }}>
-                                <Settings size={18} /> Download Design Files
-                            </a>
-                        ) : (
-                            <button className="btn-primary" disabled style={{ width: '100%', justifyContent: 'center', opacity: 0.5, cursor: 'not-allowed' }}>
-                                <Settings size={18} /> Design Files Unavailable
-                            </button>
-                        )}
+                        <button onClick={() => setShowDesignMenu(true)} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontFamily: 'inherit', fontSize: '1rem' }}>
+                            <Settings size={18} /> Design Files
+                        </button>
                         <button onClick={() => setShowToolsMenu(true)} className="btn-primary" style={{ width: '100%', justifyContent: 'center', fontFamily: 'inherit', fontSize: '1rem' }}>
                             <Wrench size={18} /> Design & Development Tools
                         </button>
@@ -234,6 +230,68 @@ export default function EVMDetails() {
             <AvailableSoftware baseEvm={evm} activeEvmData={activeEvmData} />
 
             {/* Modals for Tools and Documentation */}
+            {showDesignMenu && (
+                <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={() => setShowDesignMenu(false)}>
+                    <div className="modal-animate-in" style={{ backgroundColor: 'var(--ti-bg-surface-elevated)', borderRadius: '12px', width: '100%', maxWidth: '500px', border: '1px solid var(--ti-teal)', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1.25rem 1.5rem', borderBottom: '1px solid var(--glass-border)', backgroundColor: 'rgba(0, 135, 124, 0.1)' }}>
+                            <h3 style={{ margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'var(--ti-text-primary)' }}><Settings size={20} color="var(--ti-teal)" /> Design Files - Revision {activeRevision}</h3>
+                            <button onClick={() => setShowDesignMenu(false)} style={{ background: 'none', border: 'none', color: 'var(--ti-text-muted)', cursor: 'pointer', padding: '0.25rem' }}><X size={20} /></button>
+                        </div>
+                        <div style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {activeEvmData.designFiles && activeEvmData.designFiles[activeRevision] ? (
+                                Object.entries(activeEvmData.designFiles[activeRevision])
+                                  .sort(([a], [b]) => {
+                                    if (a === "Full Design Package") return 1;
+                                    if (b === "Full Design Package") return -1;
+                                    return 0;
+                                  })
+                                  .map(([category, files]) => (
+                                    <div 
+                                      key={category} 
+                                      style={{ 
+                                        display: 'flex', 
+                                        alignItems: 'center', 
+                                        justifyContent: 'space-between', 
+                                        padding: '1rem', 
+                                        backgroundColor: 'var(--ti-bg-base)', 
+                                        border: '1px solid var(--glass-border)', 
+                                        borderRadius: '8px',
+                                        gap: '1rem'
+                                      }}
+                                    >
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                          <FileText size={18} color="var(--ti-teal)" />
+                                          <span style={{ fontWeight: 600, color: 'var(--ti-text-primary)', fontSize: '0.95rem' }}>{category}</span>
+                                        </div>
+                                        <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+                                            {files.map((file, idx) => {
+                                                const extension = file.split('.').pop().toUpperCase();
+                                                return (
+                                                  <a
+                                                      key={idx}
+                                                      href={`${baseUrl}evms/${evm.id}/design/${activeRevision}/${file}`}
+                                                      target="_blank"
+                                                      rel="noopener noreferrer"
+                                                      className="design-format-btn"
+                                                  >
+                                                      {extension}
+                                                  </a>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--ti-text-muted)' }}>
+                                    <Settings size={48} style={{ opacity: 0.2, marginBottom: '1rem' }} />
+                                    <p>No design files found for revision {activeRevision}.</p>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {showToolsMenu && (
                 <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '1rem' }} onClick={() => setShowToolsMenu(false)}>
                     <div className="modal-animate-in" style={{ backgroundColor: 'var(--ti-bg-surface-elevated)', borderRadius: '12px', width: '100%', maxWidth: '500px', border: '1px solid var(--ti-teal)', boxShadow: '0 10px 30px rgba(0,0,0,0.5)', overflow: 'hidden' }} onClick={e => e.stopPropagation()}>

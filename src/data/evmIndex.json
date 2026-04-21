@@ -55,6 +55,22 @@
                         "E2": "Fixed LVDS connector pinout to maintain differential signals. Corrected UART1/McASP buffer signal directions. Added isolation buffers for XDS110 Test Automation constraints. Resolved SD card detect voltage collapse.",
                         "E3": "Changed LDO components to TPS7A2033 & TPS7A2018 series. Updated SOC routing and oscillator crystals."
                     },
+                    "designFiles": {
+                        "E3": {
+                            "Schematics": [
+                                "AM62x_Schematic_RevE3.pdf"
+                            ],
+                            "Board Files": [
+                                "AM62x_Layout_RevE3.brd"
+                            ],
+                            "Full Design Package": [
+                                "Full_Design_Package_E3.zip"
+                            ],
+                            "BOM": [
+                                "BOM_AM62x_E3.xlsx"
+                            ]
+                        }
+                    },
                     "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62xx-lp"
                 },
                 {
@@ -121,8 +137,47 @@
             "designFilesLink": "https://www.ti.com/lit/zip/sprr487",
             "processorSpecsLink": "https://www.ti.com/product/AM62P",
             "revisions": [
-                "E1"
+                "E1",
+                "E2"
             ],
+            "designFiles": {
+                "E1": {
+                    "Schematics": [
+                        "PROC164E1-1_SCH_With_Design-Updates..Notes_V1.0.pdf",
+                        "PROC164E1-1_SCH_With_Design-Updates..Notes_V1.0.DSN"
+                    ],
+                    "Board Files": [
+                        "PROC164E1-1_BRD.BRD"
+                    ],
+                    "Full Design Package": [
+                        "1_PROC164E1.zip"
+                    ],
+                    "BOM": [
+                        "PROC164E1-1_BOM_With_Design_Updates..Notes_V1.0.xlsx"
+                    ],
+                    "Assembly": [
+                        "PROC164E1-1 ASSEMBLY.pdf"
+                    ]
+                },
+                "E2": {
+                    "Schematics": [
+                        "PROC164E2_SCH_With_Design-Updates..Notes_V1.0.pdf",
+                        "PROC164E2_SCH_With_Design-Updates..Notes_V1.0.DSN"
+                    ],
+                    "Board Files": [
+                        "PROC164E2_BRD.brd"
+                    ],
+                    "Full Design Package": [
+                        "2_PROC164E2.zip"
+                    ],
+                    "BOM": [
+                        "PROC164E2_BOM_With_Design_Updates..Notes_V1.0.xlsx"
+                    ],
+                    "Assembly": [
+                        "PROC164E2_ASSY.pdf"
+                    ]
+                }
+            },
             "flashingSupported": true,
             "cicdLink": "https://software-dl.ti.com/cicd-report/linux/index.html?section=platform&platform=am62pxx",
             "armbianSlug": "sk-am62p",

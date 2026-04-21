@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Download, Terminal, HardDrive, ExternalLink, Monitor, Server, Layers, ChevronDown, ChevronUp } from 'lucide-react';
+import { Download, Terminal, HardDrive, ExternalLink, Monitor, Server, Layers, ChevronDown, ChevronUp, Box } from 'lucide-react';
 
 export default function AvailableSoftware({ baseEvm, activeEvmData }) {
     const [softwareList, setSoftwareList] = useState([]);
@@ -8,6 +8,34 @@ export default function AvailableSoftware({ baseEvm, activeEvmData }) {
     const [isExpanded, setIsExpanded] = useState(true);
     const [activeFilter, setActiveFilter] = useState('All');
     const [showAllArmbian, setShowAllArmbian] = useState(false);
+
+    const baseUrl = import.meta.env.BASE_URL || '/';
+
+    const getSoftwareLogo = (name = "", distro = "") => {
+        const text = (name + " " + (distro || "")).toLowerCase();
+        const isUbuntu = ['noble', 'jammy', 'focal', 'ubuntu'].some(d => text.includes(d));
+        const isDebian = ['bookworm', 'bullseye', 'sid', 'debian', 'trixie', 'forky'].some(d => text.includes(d));
+
+        if (isUbuntu) return `${baseUrl}sw_icons/Ubuntu_logo.png`;
+        if (isDebian) return `${baseUrl}sw_icons/Debian_logo.png`;
+        if (text.includes('zephyr')) return `${baseUrl}sw_icons/Zephyr_logo.webp`;
+        if (text.includes('buildroot')) return `${baseUrl}sw_icons/Buildroot_logo.png`;
+        return null;
+    };
+
+    const matchesFilter = (sw, filter) => {
+        if (filter === 'All') return true;
+        const variantText = (sw.variant || sw.name || "").toLowerCase();
+        const distroText = (sw.distro || "").toLowerCase();
+        const combinedText = (variantText + " " + distroText).toLowerCase();
+
+        if (filter === 'Desktop') return combinedText.includes('desktop') || combinedText.includes('gnome') || combinedText.includes('kde') || combinedText.includes('xfce');
+        if (filter === 'Minimal') return combinedText.includes('minimal') || combinedText.includes('server') || combinedText.includes('cli');
+        if (filter === 'Ubuntu') return ['noble', 'jammy', 'focal', 'ubuntu'].some(d => combinedText.includes(d));
+        if (filter === 'Debian') return ['bookworm', 'bullseye', 'sid', 'debian', 'trixie', 'forky'].some(d => combinedText.includes(d));
+
+        return true;
+    };
 
     useEffect(() => {
         const fetchSoftware = async () => {
@@ -171,18 +199,7 @@ export default function AvailableSoftware({ baseEvm, activeEvmData }) {
                                     )}
 
                                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '1rem' }}>
-                                        {softwareList.filter(sw => {
-                                            if (activeFilter === 'All') return true;
-                                            const variantText = (sw.variant || sw.name || "").toLowerCase();
-                                            const distroText = (sw.distro || "").toLowerCase();
-
-                                            if (activeFilter === 'Desktop') return variantText.includes('desktop') || variantText.includes('gnome') || variantText.includes('kde') || variantText.includes('xfce');
-                                            if (activeFilter === 'Minimal') return variantText.includes('minimal') || variantText.includes('server') || variantText.includes('cli');
-                                            if (activeFilter === 'Ubuntu') return distroText.includes('noble') || distroText.includes('jammy') || distroText.includes('focal') || distroText.includes('ubuntu');
-                                            if (activeFilter === 'Debian') return distroText.includes('bookworm') || distroText.includes('bullseye') || distroText.includes('sid') || distroText.includes('debian');
-
-                                            return true;
-                                        }).slice(0, showAllArmbian ? softwareList.length : 3).map((sw, index) => {
+                                        {softwareList.filter(sw => matchesFilter(sw, activeFilter)).slice(0, showAllArmbian ? softwareList.length : 3).map((sw, index) => {
                                             const variantText = (sw.variant || sw.name || "").toLowerCase();
                                             const distroText = (sw.distro || "").toLowerCase();
                                             let OsIcon = Server;
@@ -191,7 +208,7 @@ export default function AvailableSoftware({ baseEvm, activeEvmData }) {
                                             else if (variantText.includes('gnome') || variantText.includes('kde')) OsIcon = Layers;
 
                                             const osName = ['noble', 'jammy', 'focal', 'ubuntu'].some(d => distroText.includes(d)) ? 'Ubuntu' :
-                                                ['bookworm', 'bullseye', 'sid', 'debian'].some(d => distroText.includes(d)) ? 'Debian' :
+                                                ['bookworm', 'bullseye', 'sid', 'debian', 'trixie', 'forky'].some(d => distroText.includes(d)) ? 'Debian' :
                                                     sw.distro ? (sw.distro.charAt(0).toUpperCase() + sw.distro.slice(1)) : 'Linux';
 
                                             return (
@@ -200,8 +217,12 @@ export default function AvailableSoftware({ baseEvm, activeEvmData }) {
                                                     onMouseLeave={e => e.currentTarget.style.transform = 'translateY(0)'}>
 
                                                     <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', marginBottom: '0.25rem' }}>
-                                                        <div style={{ backgroundColor: 'rgba(0, 135, 124, 0.1)', padding: '0.75rem', borderRadius: '8px', color: 'var(--ti-teal)', flexShrink: 0 }}>
-                                                            <OsIcon size={24} />
+                                                        <div style={{ backgroundColor: 'rgba(0, 135, 124, 0.1)', padding: '0.75rem', borderRadius: '8px', color: 'var(--ti-teal)', flexShrink: 0, width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                                                            {getSoftwareLogo(sw.name, sw.distro) ? (
+                                                                <img src={getSoftwareLogo(sw.name, sw.distro)} alt={osName} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+                                                            ) : (
+                                                                <OsIcon size={24} />
+                                                            )}
                                                         </div>
                                                         <div>
                                                             <h4 style={{ margin: '0 0 0.25rem 0', color: 'var(--ti-text-primary)' }}>{sw.name}</h4>
@@ -219,16 +240,7 @@ export default function AvailableSoftware({ baseEvm, activeEvmData }) {
                                             );
                                         })}
 
-                                        {softwareList.filter(sw => {
-                                            if (activeFilter === 'All') return true;
-                                            const variantText = (sw.variant || sw.name || "").toLowerCase();
-                                            const distroText = (sw.distro || "").toLowerCase();
-                                            if (activeFilter === 'Desktop') return variantText.includes('desktop') || variantText.includes('gnome') || variantText.includes('kde') || variantText.includes('xfce');
-                                            if (activeFilter === 'Minimal') return variantText.includes('minimal') || variantText.includes('server') || variantText.includes('cli');
-                                            if (activeFilter === 'Ubuntu') return distroText.includes('noble') || distroText.includes('jammy') || distroText.includes('focal') || distroText.includes('ubuntu');
-                                            if (activeFilter === 'Debian') return distroText.includes('bookworm') || distroText.includes('bullseye') || distroText.includes('sid') || distroText.includes('debian');
-                                            return true;
-                                        }).length === 0 && (
+                                        {softwareList.filter(sw => matchesFilter(sw, activeFilter)).length === 0 && (
                                                 <div style={{ color: 'var(--ti-text-muted)', gridColumn: '1 / -1', padding: '2rem 0', textAlign: 'center' }}>
                                                     No images found matching the current filter.
                                                 </div>
@@ -264,8 +276,11 @@ export default function AvailableSoftware({ baseEvm, activeEvmData }) {
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
                                 {Object.entries((activeEvmData.softwareSupport || baseEvm.softwareSupport) || {}).map(([category, items]) => (
                                     <div key={category} style={{ backgroundColor: 'var(--ti-bg-base)', borderRadius: '12px', border: '1px solid var(--glass-border)', overflow: 'hidden', display: 'flex', flexDirection: 'column', height: '100%' }}>
-                                        <div style={{ backgroundColor: 'rgba(0, 135, 124, 0.05)', padding: '1rem 1.25rem', borderBottom: '1px solid var(--glass-border)' }}>
+                                        <div style={{ backgroundColor: 'rgba(0, 135, 124, 0.05)', padding: '1rem 1.25rem', borderBottom: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                                             <h4 style={{ margin: 0, color: 'var(--ti-teal)', fontSize: '1.1rem' }}>{category}</h4>
+                                            {getSoftwareLogo(category) && (
+                                                <img src={getSoftwareLogo(category)} alt={category} style={{ height: '24px', width: 'auto', objectFit: 'contain' }} />
+                                            )}
                                         </div>
                                         <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', gap: '1rem', flexGrow: 1 }}>
                                             {items.map((item, index) => (

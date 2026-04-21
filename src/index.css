@@ -110,7 +110,7 @@ body {
 
 .page-container {
   flex: 1;
-  padding: 2rem;
+  padding: 1.5rem;
   max-width: 1400px;
   margin: 0 auto;
   width: 100%;
@@ -197,6 +197,28 @@ a:hover {
   border-color: var(--ti-teal);
   color: var(--ti-teal);
   background-color: rgba(0, 135, 124, 0.05);
+}
+
+.design-format-btn {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+  border-radius: 6px;
+  text-decoration: none;
+  background-color: rgba(0, 135, 124, 0.05);
+  border: 1px solid var(--ti-teal);
+  color: var(--ti-teal);
+  transition: all var(--transition-fast);
+}
+
+.design-format-btn:hover {
+  background-color: var(--ti-red);
+  border-color: var(--ti-red);
+  color: var(--ti-white);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-red);
 }
 
 /* Badge/Tag */

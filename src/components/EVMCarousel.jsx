@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Box, Download } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, Preload } from '@react-three/drei';
@@ -6,6 +6,11 @@ import EVMModel from './EVMViewer3D';
 
 export default function EVMCarousel({ images = [], stlPath }) {
     const [currentIndex, setCurrentIndex] = useState(0);
+
+    // Reset carousel index when the board or variant changes
+    useEffect(() => {
+        setCurrentIndex(0);
+    }, [images, stlPath]);
 
     const totalItems = images.length + (stlPath ? 1 : 0);
 
