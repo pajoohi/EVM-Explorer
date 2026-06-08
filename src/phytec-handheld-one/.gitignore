@@ -1,0 +1,12 @@
+# KiCad autosaves and backups
+_autosave-*
+*.bak
+*-backups/
+#auto_saved_files#
+
+# KiCad cache
+fp-info-cache
+*.kicad_prl
+
+# Manufacturing Outputs
+Output/
